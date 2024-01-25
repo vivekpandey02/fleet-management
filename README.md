@@ -99,6 +99,30 @@ of an Eclipse Hono instance as shown in the diagram below.
    back end component which receives vehicle data via Hono's north bound Kafka based Telemetry API and writes it to the
    Influx DB.
 
+# Using Zenoh Router to geographically distribute the vehicle data
+
+[Eclipse Zenoh](https://zenoh.io/) offers an exceptionally efficient wire protocol, lightweight discovery, and adaptive routing algorithms that prove highly responsive in dynamic environments and topology changes.
+This results in seamless session migration and ensures optimal latency and resource consumption for devices in decentralized systems, even in the face of mobility. 
+
+Deploying the Fleet Management system over the Zenoh Router allows consumers to access data through the closest path, promoting significant decentralization and improved mobility that are critical to managing a Fleet.
+Zenoh Router provides a plugin mechanism to other protocols and here we allow FMS forwarder to send data over Zenoh / MQTT.
+
+<img src="img/architecture-zenoh.drawio.svg">
+
+We now provide the instructions on how you can test the communication using Zenoh
+ 
+1. Create a local docker image for FMS Forworder to support the zenoh communication, run the below command from  fleet-management/components/ directory:
+   ```sh
+   docker build -t fms-forwarder:custom -f Dockerfile.fms-forwarder .
+   ```
+   ```sh
+   docker build -t fms-consumer:custom -f Dockerfile.fms-consumer .
+   ```
+2. Start up the zenoh router and back end services using Docker Compose files in the top level (fleet-management/) folder:
+ 
+   ```sh
+   docker compose -f ./fms-blueprint-compose.yaml -f ./fms-blueprint-compose-zenoh.yaml up --detach
+   ```
 # Manual configuration
 
 All information required for setting up the networks, volumes, configs and containers is contained in the
