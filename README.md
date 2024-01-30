@@ -110,7 +110,11 @@ Zenoh Router provides a plugin mechanism to other protocols and here we allow FM
 <img src="img/architecture-zenoh.drawio.svg">
 
 We now provide the instructions on how you can test the communication using Zenoh
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> pr/2
 1. Create a local docker image for FMS Forworder to support the zenoh communication, run the below command from  fleet-management/components/ directory:
    ```sh
    docker build -t fms-forwarder:custom -f Dockerfile.fms-forwarder .
